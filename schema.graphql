@@ -1,0 +1,68 @@
+scalar Date
+
+type Query {
+  allBooks: [Book]
+  getBook(isbn: String!): Book
+  topics: [Topic]
+  bookMajorGenres: [String]
+}
+
+type Mutation {
+  addBook(input: AddBookInput!): Book
+}
+
+input AddBookInput {
+  title: String!
+  author: String!
+  year: Int!
+  isbn: String!
+  series: String
+  publishedDate: Date
+  price: String!
+  summary: String
+  description: String
+  imageUrl: String
+  genreMajor: String
+  genreMinor: String
+}
+
+type Book {
+  id: ID!
+  title: String
+  author: String
+  year: Int!
+  isbn: String!
+  url: String!
+  series: String
+  publishedDate: Date
+  price: String
+  summary: String
+  description: String
+  imageUrl: String
+  genreMajor: String
+  genreMinor: String
+  retails: [Retail]
+  relatedBooks: [Book]
+  relatedReports: [Report]
+}
+
+type Report {
+  id: ID!
+  title: String
+  url: String!
+  summary: String
+  content: String
+}
+
+type Retail {
+  id: ID!
+  name: String
+  url: String!
+}
+
+type Topic {
+  id: ID!
+  title: String
+  category: String
+  publishedDate: String
+}
