@@ -3,6 +3,8 @@ scalar Date
 type Query {
   allBooks: [Book]
   getBook(isbn: String!): Book
+  allMagazines: [Magazine]
+  allMaterials: [Material]
   topics: [Topic]
   bookMajorGenres: [String]
 }
@@ -26,13 +28,18 @@ input AddBookInput {
   genreMinor: String
 }
 
-type Book {
+interface Material {
+  id: ID!
+  title: String
+}
+
+type Book implements Material {
   id: ID!
   title: String
   author: String
   year: Int!
   isbn: String!
-  url: String!
+  url: String
   series: String
   publishedDate: Date
   price: String
@@ -41,28 +48,37 @@ type Book {
   imageUrl: String
   genreMajor: String
   genreMinor: String
-  retails: [Retail]
+  retail: Retail
   relatedBooks: [Book]
   relatedReports: [Report]
+}
+
+type Magazine implements Material {
+  id: ID!
+  title: String
+  isbn: String!
+  publisher: String
 }
 
 type Report {
   id: ID!
   title: String
-  url: String!
+  url: String
   summary: String
   content: String
 }
 
 type Retail {
-  id: ID!
-  name: String
-  url: String!
+  direct: String
+  amazon: String
+  rakutenBooks: String
+  honto: String
 }
 
 type Topic {
   id: ID!
   title: String
+  url: String
   category: String
   publishedDate: String
 }
